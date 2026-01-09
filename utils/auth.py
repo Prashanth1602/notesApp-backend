@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
+from db_config import get_db
 
 JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY')
 ALGORITHM = os.getenv('ALGORITHM')

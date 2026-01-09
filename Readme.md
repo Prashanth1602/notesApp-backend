@@ -13,4 +13,5 @@ commands include - alembic init alembic, alembic upgrade head
 
 Build Command: pip install -r requirements.txt
 Start Command: uvicorn main:app --host 0.0.0.0 --port 10000
-Pre-Deploy Command: alembic upgrade head 
+
+(Note: Migrations run automatically on startup) 

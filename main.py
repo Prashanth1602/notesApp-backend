@@ -13,6 +13,17 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Notes API", description="Notes API")
 
+from alembic.config import Config
+from alembic import command
+
+def run_migrations():
+    alembic_cfg = Config("alembic.ini")
+    command.upgrade(alembic_cfg, "head")
+
+@app.on_event("startup")
+def startup_event():
+    run_migrations()
+
 app.include_router(users.router, prefix='/users', tags=['users'])
 app.include_router(notes.router, prefix='/notes', tags=['notes'])
 
