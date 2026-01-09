@@ -4,6 +4,7 @@ from datetime import datetime
 
 class NoteSchema(BaseModel):
     id: int
+    user_id: int
     title: str
     content: str
     is_archived: bool

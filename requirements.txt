@@ -3,3 +3,7 @@ uvicorn
 sqlalchemy
 python-dotenv
 psycopg2-binary
+pyjwt
+passlib
+bcrypt
+
