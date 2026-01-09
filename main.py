@@ -4,10 +4,28 @@ from typing import List
 from schemas import NoteSchema, NoteCreate, NoteUpdate, NoteDelete
 from models import Notes
 from db_config import engine, Base, get_db
+from fastapi.middleware.cors import CORSMiddleware
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+origins = []
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+if os.getenv("FRONTEND_URL"):
+    origins.append(os.getenv("FRONTEND_URL"))
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get('/')
 def check_health():
@@ -41,6 +59,28 @@ def update_note(note_id: int, note_update: NoteUpdate, db: Session = Depends(get
     
     db_note.title = note_update.title
     db_note.content = note_update.content
+    db.commit()
+    db.refresh(db_note)
+    return db_note
+
+@app.put('/notes/{note_id}/archive', response_model=NoteSchema)
+def archive_note(note_id: int, db: Session = Depends(get_db)):
+    db_note = db.query(Notes).filter(Notes.id == note_id).first()
+    if db_note is None:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    db_note.is_archived = True
+    db.commit()
+    db.refresh(db_note)
+    return db_note
+
+@app.put('/notes/{note_id}/unarchive', response_model=NoteSchema)
+def unarchive_note(note_id: int, db: Session = Depends(get_db)):
+    db_note = db.query(Notes).filter(Notes.id == note_id).first()
+    if db_note is None:
+        raise HTTPException(status_code=404, detail="Note not found")
+    
+    db_note.is_archived = False
     db.commit()
     db.refresh(db_note)
     return db_note
