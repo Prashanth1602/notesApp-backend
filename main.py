@@ -11,7 +11,7 @@ origins = []
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Notes API", description="Notes API")
+app = FastAPI(title="Smriti API", description="Smriti API")
 
 from alembic.config import Config
 from alembic import command

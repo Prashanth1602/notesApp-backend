@@ -10,7 +10,6 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 from db_config import Base, DB_URL
-import models  # noqa: F401
 
 config.set_main_option("sqlalchemy.url", DB_URL)
 
