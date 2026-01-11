@@ -3,7 +3,7 @@ from db_config import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
-from routers import users, notes
+from routers import users, notes, search
 
 load_dotenv()
 
@@ -26,6 +26,7 @@ def startup_event():
 
 app.include_router(users.router, prefix='/users', tags=['users'])
 app.include_router(notes.router, prefix='/notes', tags=['notes'])
+app.include_router(search.router, prefix='/search', tags=['search'])
 
 if os.getenv("FRONTEND_URL"):
     origins.append(os.getenv("FRONTEND_URL"))
