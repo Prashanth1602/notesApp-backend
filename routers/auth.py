@@ -46,9 +46,7 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/refresh", response_model=TokenResponse)
 def refresh(request: Request, response: Response, db: Session = Depends(get_db)):
-    print(f"DEBUG: Cookies received: {request.cookies.keys()}", flush=True)
     refresh_token = request.cookies.get("refresh_token")
-    print(f"DEBUG: Refresh token received: {'Yes' if refresh_token else 'No'}", flush=True)
     if not refresh_token:
         raise HTTPException(status_code=401, detail="Missing refresh token")
     try:
