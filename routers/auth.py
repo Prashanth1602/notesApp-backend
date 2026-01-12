@@ -26,7 +26,7 @@ def login(user_credentials: UserLogin, response: Response, db: Session = Depends
         value=refresh_token,
         httponly=True,
         secure=True,
-        samesite="none",
+        samesite=None,
         max_age=7 * 24 * 60 * 60
     )
     return {"access_token": access_token, "token_type": "bearer"}
@@ -46,7 +46,9 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/refresh", response_model=TokenResponse)
 def refresh(request: Request, response: Response, db: Session = Depends(get_db)):
+    print(f"DEBUG: Cookies received: {request.cookies.keys()}")
     refresh_token = request.cookies.get("refresh_token")
+    print(f"DEBUG: Refresh token received: {'Yes' if refresh_token else 'No'}")
     if not refresh_token:
         raise HTTPException(status_code=401, detail="Missing refresh token")
     try:
@@ -59,7 +61,7 @@ def refresh(request: Request, response: Response, db: Session = Depends(get_db))
         value=new_refresh_token,
         httponly=True,
         secure=True,
-        samesite="none",
+        samesite=None,
         max_age=7 * 24 * 60 * 60
     )
     return {"access_token": access_token}
