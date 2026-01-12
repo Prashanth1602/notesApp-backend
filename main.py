@@ -30,7 +30,9 @@ app.include_router(search.router, prefix='/search', tags=['search'])
 app.include_router(auth.router, prefix='/auth', tags=['auth'])
 
 if os.getenv("FRONTEND_URL"):
-    origins.append(os.getenv("FRONTEND_URL"))
+    frontend_url = os.getenv("FRONTEND_URL").rstrip("/")
+    origins.append(frontend_url)
+    print(f"DEBUG: Allowed Origins: {origins}", flush=True)
 
 app.add_middleware(
     CORSMiddleware,
