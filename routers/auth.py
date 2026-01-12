@@ -26,7 +26,7 @@ def login(user_credentials: UserLogin, response: Response, db: Session = Depends
         value=refresh_token,
         httponly=True,
         secure=True,
-        samesite=None,
+        samesite="none",
         max_age=7 * 24 * 60 * 60
     )
     return {"access_token": access_token, "token_type": "bearer"}
@@ -61,7 +61,7 @@ def refresh(request: Request, response: Response, db: Session = Depends(get_db))
         value=new_refresh_token,
         httponly=True,
         secure=True,
-        samesite=None,
+        samesite="none",
         max_age=7 * 24 * 60 * 60
     )
     return {"access_token": access_token}
