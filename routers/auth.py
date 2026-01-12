@@ -50,7 +50,6 @@ def refresh(request: Request, response: Response, db: Session = Depends(get_db))
     if not refresh_token:
         raise HTTPException(status_code=401, detail="Missing refresh token")
     try:
-        # Pass refresh_token as keyword argument if needed, or positional as defined in util
         access_token, new_refresh_token = refresh_access_token(db, refresh_token_str=refresh_token)
     except ValueError as e:
         raise HTTPException(status_code=401, detail=str(e))
