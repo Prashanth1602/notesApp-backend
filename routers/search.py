@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from schemas.search import SearchResponse
 from utils.search import search_notes
 from db_config import get_db
-from utils.auth import get_current_user_from_token
-from models import Users
+from utils.token import get_current_user_from_token
+from models.users import Users
 
 router = APIRouter()
 

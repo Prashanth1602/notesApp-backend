@@ -1,10 +1,10 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException, Request
 from sqlalchemy.orm import Session
-from schemas.users import UserSchema, UserCreate, UserLogin, UserUpdate
-from models import Users, Notes
+from schemas.users import UserSchema, UserCreate, UserUpdate
+from models.users import Users
+from models.notes import Notes
 from db_config import get_db
-from fastapi import APIRouter, Depends, HTTPException
-from utils.auth import create_token, verify_password, get_password_hash, get_current_user_from_token
+from utils.token import get_current_user_from_token
 
 router = APIRouter()
 
@@ -33,30 +33,3 @@ def delete_user_me(current_user: Users = Depends(get_current_user_from_token), d
     db.commit()
     return {"message": "Account deleted successfully"}
 
-@router.post('/logout')
-def logout(current_user: Users = Depends(get_current_user_from_token)):
-    return {"message": "Logged out successfully"}
-
-@router.post('/login')
-def login(user_credentials: UserLogin, db: Session = Depends(get_db)):
-    user = db.query(Users).filter(Users.email == user_credentials.email).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    if not verify_password(user_credentials.password, user.password_hash):
-        raise HTTPException(status_code=401, detail="Incorrect password")
-    
-    token = create_token(user)
-    return {"access_token": token, "token_type": "bearer"}
-
-@router.post('/register', response_model=UserSchema)
-def register(user: UserCreate, db: Session = Depends(get_db)):
-    db_user = db.query(Users).filter((Users.email == user.email) | (Users.username == user.username)).first()
-    if db_user:
-        raise HTTPException(status_code=400, detail="Email or Username already registered")
-        
-    hashed_password = get_password_hash(user.password)
-    new_user = Users(username=user.username, email=user.email, password_hash=hashed_password)
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
-    return new_user

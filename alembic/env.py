@@ -10,6 +10,9 @@ if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
 from db_config import Base, DB_URL
+from models.users import Users
+from models.notes import Notes
+from models.auth import RefreshToken
 
 config.set_main_option("sqlalchemy.url", DB_URL)
 

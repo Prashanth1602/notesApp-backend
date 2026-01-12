@@ -7,6 +7,7 @@ Smriti API is a robust and efficient backend service designed for managing perso
 ### User Management
 - **Registration**: Secure user sign-up with email and username uniqueness checks.
 - **Authentication**: JWT-based login system for secure session management.
+  - **Refresh Tokens**: Implemented secure, rotating refresh tokens using HttpOnly cookies to maintain long-lived sessions safely.
 - **Profile Management**: Update user profile details (username, email).
 - **Account Control**: Full account deletion capability, cascading to all user data.
 
@@ -87,3 +88,4 @@ Contributions, issues, and feature requests are welcome!
 ## License
 
 This project is licensed under the MIT License.
+

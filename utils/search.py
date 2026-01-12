@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from models import Notes
+from models.notes import Notes
 from sqlalchemy import or_
 
 def search_notes(db: Session, query: str, user_id: int):

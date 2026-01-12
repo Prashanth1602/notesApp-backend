@@ -11,14 +11,3 @@ class Notes(Base):
     is_archived = Column(Boolean, default=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
     updated_at = Column(DateTime(timezone=True), onupdate=func.now(), index=True)
-
-class Users(Base):
-    __tablename__ = "users"
-    id = Column(Integer, primary_key=True, index=True)
-    username = Column(String, unique=True, index=True)
-    email = Column(String, unique=True, index=True)
-    password_hash = Column(String)
-    created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), index=True)
-
-
