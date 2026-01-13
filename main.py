@@ -1,9 +1,15 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from db_config import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 from routers import users, notes, search, auth
+import time
+from alembic.config import Config
+from alembic import command
+from utils.logger import setup_logger
+
+logger = setup_logger("main")
 
 load_dotenv()
 
@@ -13,16 +19,29 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Smriti API", description="Smriti API")
 
-from alembic.config import Config
-from alembic import command
-
 def run_migrations():
     alembic_cfg = Config("alembic.ini")
     command.upgrade(alembic_cfg, "head")
 
 @app.on_event("startup")
 def startup_event():
+    logger.info("Application starting up...")
     run_migrations()
+    logger.info("Database migrations completed.")
+
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    if request.url.path in ["/favicon.ico", "/apple-touch-icon.png", "/apple-touch-icon-precomposed.png"]:
+        return await call_next(request)
+
+    start_time = time.time()
+    response = await call_next(request)
+    process_time = time.time() - start_time
+    logger.info(
+        f"Method: {request.method} Path: {request.url.path} "
+        f"Status: {response.status_code} Duration: {process_time:.4f}s"
+    )
+    return response
 
 app.include_router(users.router, prefix='/users', tags=['users'])
 app.include_router(notes.router, prefix='/notes', tags=['notes'])
@@ -43,4 +62,5 @@ app.add_middleware(
 
 @app.get('/')
 def check_health():
+    logger.info("Health check endpoint called")
     return {'health': 'ok'}

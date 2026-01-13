@@ -16,6 +16,7 @@ Smriti API is a robust and efficient backend service designed for managing perso
 - **Organization**: Archive and Unarchive notes to keep your workspace organised.
 - **Search**: Advanced Full-text search capability to instantly find notes by title or content using Postgres `TSVECTOR` and `websearch_to_tsquery` (supports quotes, negation `-`, and OR).
 - **Data Integrity**: All notes are securely linked to the authenticated user.
+- **Observability**: Comprehensive logging of incoming requests, system events, and errors to both console and rotating files for production readiness.
 
 ## Tech Stack
 
@@ -23,6 +24,7 @@ Smriti API is a robust and efficient backend service designed for managing perso
 - **Database ORM**: [SQLAlchemy](https://www.sqlalchemy.org/) - The Python SQL Toolkit and Object Relational Mapper.
 - **Database**: PostgreSQL (via `psycopg2-binary`).
 - **Migrations**: [Alembic](https://alembic.sqlalchemy.org/) - Lightweight database migration tool for usage with SQLAlchemy.
+- **Logging**: Python's built-in `logging` module with `RotatingFileHandler`.
 - **Authentication**: JWT (JSON Web Tokens) with `python-jose` (or `pyjwt`) and `passlib` for password hashing.
 
 ## Installation & Setup
