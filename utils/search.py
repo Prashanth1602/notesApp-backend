@@ -1,12 +1,14 @@
 from sqlalchemy.orm import Session
 from models.notes import Notes
-from sqlalchemy import or_
+from sqlalchemy import func
 
 def search_notes(db: Session, query: str, user_id: int):
-    return db.query(Notes).filter(
-        Notes.user_id == user_id,
-        or_(
-            Notes.title.ilike(f"%{query}%"),
-            Notes.content.ilike(f"%{query}%")
-        )
-    ).all()
+    if query:
+        terms = query.strip().split()
+        if terms:
+            ts_query = " & ".join(f"{term}:*" for term in terms)
+            return db.query(Notes).filter(
+                Notes.user_id == user_id,
+                Notes.search_vector.op("@@")(func.to_tsquery("english", ts_query))
+            ).all()
+    return []

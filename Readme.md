@@ -14,7 +14,7 @@ Smriti API is a robust and efficient backend service designed for managing perso
 ### Note Management
 - **CRUD Operations**: Complete Create, Read, Update, and Delete functionality for notes.
 - **Organization**: Archive and Unarchive notes to keep your workspace organised.
-- **Search**: Full-text search capability to instantly find notes by title or content using ILIKE operator.
+- **Search**: Advanced Full-text search capability to instantly find notes by title or content using Postgres `TSVECTOR` and `websearch_to_tsquery` (supports quotes, negation `-`, and OR).
 - **Data Integrity**: All notes are securely linked to the authenticated user.
 
 ## Tech Stack
