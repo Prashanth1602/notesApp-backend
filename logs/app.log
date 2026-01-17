@@ -1,1 +1,41 @@
 
+2026-01-18 00:19:48,516 - main - INFO - Application starting up...
+2026-01-18 00:19:48,536 - main - INFO - Database migrations completed.
+2026-01-18 00:20:17,883 - main - INFO - Method: GET Path: /users/me Status: 401 Duration: 0.0009s
+2026-01-18 00:20:17,909 - main - INFO - Method: POST Path: /auth/refresh Status: 401 Duration: 0.0017s
+2026-01-18 00:20:36,654 - main - INFO - Method: POST Path: /auth/login Status: 200 Duration: 0.3359s
+2026-01-18 00:20:36,670 - main - INFO - Method: GET Path: /users/me Status: 200 Duration: 0.0075s
+2026-01-18 00:20:37,014 - main - INFO - Method: GET Path: /notes Status: 307 Duration: 0.0006s
+2026-01-18 00:20:37,022 - notes_router - INFO - Fetching notes for user_id: 13
+2026-01-18 00:20:37,036 - main - INFO - Method: GET Path: /notes/ Status: 200 Duration: 0.0175s
+2026-01-18 00:22:24,533 - main - INFO - Method: GET Path: /users/me Status: 401 Duration: 0.0011s
+2026-01-18 00:22:24,539 - main - INFO - Method: POST Path: /auth/refresh Status: 401 Duration: 0.0013s
+2026-01-18 00:22:43,238 - main - INFO - Method: POST Path: /auth/login Status: 200 Duration: 0.2822s
+2026-01-18 00:22:43,246 - main - INFO - Method: GET Path: /users/me Status: 200 Duration: 0.0023s
+2026-01-18 00:22:43,266 - main - INFO - Method: GET Path: /notes Status: 307 Duration: 0.0008s
+2026-01-18 00:22:43,270 - notes_router - INFO - Fetching notes for user_id: 13
+2026-01-18 00:22:43,272 - main - INFO - Method: GET Path: /notes/ Status: 200 Duration: 0.0029s
+2026-01-18 00:25:02,726 - main - INFO - Method: GET Path: /download Status: 307 Duration: 0.0009s
+2026-01-18 00:25:02,738 - main - INFO - Method: GET Path: /download/ Status: 200 Duration: 0.0067s
+2026-01-18 00:27:11,079 - main - INFO - Method: GET Path: /download Status: 307 Duration: 0.0011s
+2026-01-18 00:27:11,128 - main - INFO - Method: GET Path: /download/ Status: 200 Duration: 0.0447s
+2026-01-18 00:27:15,739 - main - INFO - Method: GET Path: /users/me Status: 401 Duration: 0.0005s
+2026-01-18 00:27:15,743 - main - INFO - Method: POST Path: /auth/refresh Status: 401 Duration: 0.0006s
+2026-01-18 00:27:31,207 - main - INFO - Method: POST Path: /auth/login Status: 200 Duration: 0.2813s
+2026-01-18 00:27:31,215 - main - INFO - Method: GET Path: /users/me Status: 200 Duration: 0.0028s
+2026-01-18 00:27:31,240 - main - INFO - Method: GET Path: /notes Status: 307 Duration: 0.0002s
+2026-01-18 00:27:31,243 - notes_router - INFO - Fetching notes for user_id: 13
+2026-01-18 00:27:31,244 - main - INFO - Method: GET Path: /notes/ Status: 200 Duration: 0.0024s
+2026-01-18 00:27:36,536 - main - INFO - Method: GET Path: /download Status: 307 Duration: 0.0007s
+2026-01-18 00:27:36,550 - main - INFO - Method: GET Path: /download/ Status: 200 Duration: 0.0088s
+2026-01-18 00:30:37,239 - main - INFO - Method: GET Path: /download Status: 307 Duration: 0.0010s
+2026-01-18 00:30:37,256 - main - INFO - Method: GET Path: /download/ Status: 200 Duration: 0.0112s
+2026-01-18 00:30:47,277 - main - INFO - Method: GET Path: /users/me Status: 401 Duration: 0.0003s
+2026-01-18 00:30:47,292 - main - INFO - Method: POST Path: /auth/refresh Status: 401 Duration: 0.0006s
+2026-01-18 00:31:14,526 - main - INFO - Method: POST Path: /auth/login Status: 200 Duration: 0.2824s
+2026-01-18 00:31:14,537 - main - INFO - Method: GET Path: /users/me Status: 200 Duration: 0.0030s
+2026-01-18 00:31:14,596 - main - INFO - Method: GET Path: /notes Status: 307 Duration: 0.0099s
+2026-01-18 00:31:14,647 - notes_router - INFO - Fetching notes for user_id: 13
+2026-01-18 00:31:14,655 - main - INFO - Method: GET Path: /notes/ Status: 200 Duration: 0.0098s
+2026-01-18 00:31:19,915 - main - INFO - Method: GET Path: /download Status: 307 Duration: 0.0004s
+2026-01-18 00:31:19,927 - main - INFO - Method: GET Path: /download/ Status: 200 Duration: 0.0078s

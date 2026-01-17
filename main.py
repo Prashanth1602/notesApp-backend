@@ -3,7 +3,7 @@ from db_config import engine, Base
 from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
-from routers import users, notes, search, auth
+from routers import users, notes, search, auth, download
 import time
 from alembic.config import Config
 from alembic import command
@@ -47,6 +47,7 @@ app.include_router(users.router, prefix='/users', tags=['users'])
 app.include_router(notes.router, prefix='/notes', tags=['notes'])
 app.include_router(search.router, prefix='/search', tags=['search'])
 app.include_router(auth.router, prefix='/auth', tags=['auth'])
+app.include_router(download.router, prefix='/download', tags=['download'])
 
 if os.getenv("FRONTEND_URL"):
     frontend_url = os.getenv("FRONTEND_URL")
