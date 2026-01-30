@@ -1,94 +1,55 @@
-# Smriti API - Notes Management System
+# Smriti API — Notes Management Backend
 
-Smriti API is a robust and efficient backend service designed for managing personal notes. Built with modern web technologies, it provides a secure and scalable foundation for any frontend notes application.
+Smriti is a backend system focused on secure data persistence, authentication, and note lifecycle management.  
+The project explores how personal user data can be stored, queried, exported, and deleted safely in a multi-user API.
 
-## Features
+The frontend exists only to exercise and validate backend workflows.
 
-### User Management
-- **Registration**: Secure user sign-up with email and username uniqueness checks.
-- **Authentication**: JWT-based login system for secure session management.
-  - **Refresh Tokens**: Implemented secure, rotating refresh tokens using HttpOnly cookies to maintain long-lived sessions safely.
-- **Profile Management**: Update user profile details (username, email).
-- **Account Control**: Full account deletion capability, cascading to all user data.
+---
 
-### Note Management
-- **CRUD Operations**: Complete Create, Read, Update, and Delete functionality for notes.
-- **Organization**: Archive and Unarchive notes to keep your workspace organised.
-- **Export**: Download all your memories as a single HTML file.
-- **Search**: Advanced Full-text search capability to instantly find notes by title or content using Postgres `TSVECTOR` and `websearch_to_tsquery` (supports quotes, negation `-`, and OR).
-- **Data Integrity**: All notes are securely linked to the authenticated user.
-- **Observability**: Comprehensive logging of incoming requests, system events, and errors to both console and rotating files for production readiness.
+## Core Focus Areas
+
+### Authentication & Session Design
+- JWT-based authentication with short-lived access tokens
+- Long-lived refresh tokens stored as HttpOnly cookies
+- Token revocation via database-backed refresh tokens
+- Immediate access denial for deleted or deactivated users
+
+This design limits the blast radius of token compromise while keeping sessions usable.
+
+---
+
+### Note Lifecycle Management
+- Full CRUD operations scoped strictly to the authenticated user
+- Archive and unarchive flows to support long-term data organization
+- Cascade deletion of all user-owned data on account removal
+- Export of all user notes as a single HTML file
+
+---
+
+### Search & Data Integrity
+- Full-text search using PostgreSQL `TSVECTOR`
+- `websearch_to_tsquery` support (quotes, negation, OR)
+- Strong ownership guarantees enforced at the database and API layers
+- Indexed queries to keep search and reads efficient
+
+---
+
+### Observability & Operational Awareness
+- Structured logging for requests, errors, and system events
+- Rotating log files for production-style log management
+- Centralized error handling to avoid leaking internal details
+
+---
 
 ## Tech Stack
 
-- **Framework**: [FastAPI](https://fastapi.tiangolo.com/) - High performance, easy to learn, fast to code, ready for production.
-- **Database ORM**: [SQLAlchemy](https://www.sqlalchemy.org/) - The Python SQL Toolkit and Object Relational Mapper.
-- **Database**: PostgreSQL (via `psycopg2-binary`).
-- **Migrations**: [Alembic](https://alembic.sqlalchemy.org/) - Lightweight database migration tool for usage with SQLAlchemy.
-- **Logging**: Python's built-in `logging` module with `RotatingFileHandler`.
-- **Authentication**: JWT (JSON Web Tokens) with `python-jose` (or `pyjwt`) and `passlib` for password hashing.
+- **Framework**: FastAPI
+- **Database**: PostgreSQL
+- **ORM**: SQLAlchemy
+- **Migrations**: Alembic
+- **Authentication**: JWT (HS256), Passlib (bcrypt)
+- **Logging**: Python logging with RotatingFileHandler
 
-## Installation & Setup
-
-Follow these steps to get the project running on your local machine.
-
-### Prerequisites
-- Python 3.9 or higher
-- PostgreSQL database
-
-### 1. Clone the Repository
-```bash
-git clone <repository-url>
-cd notesApp-backend
-```
-
-### 2. Create and Activate Virtual Environment
-```bash
-python -m venv venv
-source venv/bin/activate  
-```
-
-### 3. Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Environment Configuration
-Create a `.env` file in the root directory. You can use `.env.example` as a template.
-```env
-DATABASE_URL=postgresql://user:password@localhost/dbname
-SECRET_KEY=your_secret_key
-ALGORITHM=HS256
-```
-
-### 5. Database Migrations
-Initialize the database tables using Alembic.
-```bash
-alembic upgrade head
-```
-
-## Running the Application
-
-Start the server using Uvicorn:
-
-```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
-```
-
-The API will be available at `http://localhost:8000`.
-
-## API Documentation
-
-FastAPI automatically generates interactive API documentation. Once the app is running, visit:
-
-- **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs) - Interactive exploration and testing of API endpoints.
-- **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc) - Alternative documentation view.
-
-## Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## License
-
-This project is licensed under the MIT License.
+---
 
